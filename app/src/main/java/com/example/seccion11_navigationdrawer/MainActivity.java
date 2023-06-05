@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
   private void setToolbar(){
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-    // setSupportActionBar(toolbar); // Cuando usas una barra de la app perteneciente a un fragmento, Google recomienda que uses directamente las APIs de Toolbar. No uses setSupportActionBar() ni las APIs de menú de Fragment, que son adecuadas solo para las barras de la app pertenecientes a una actividad.
+    setSupportActionBar(toolbar); // Cuando usas una barra de la app perteneciente a un fragmento, Google recomienda que uses directamente las APIs de Toolbar. No uses setSupportActionBar() ni las APIs de menú de Fragment, que son adecuadas solo para las barras de la app pertenecientes a una actividad.
     getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
   }
