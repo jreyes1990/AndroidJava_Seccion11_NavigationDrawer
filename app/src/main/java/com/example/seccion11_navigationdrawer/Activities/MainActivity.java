@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
     navigationView = (NavigationView) findViewById(R.id.navView);
 
+    setFragmentByDefault();
+
     navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
       @Override
       public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -72,6 +74,13 @@ public class MainActivity extends AppCompatActivity {
     setSupportActionBar(toolbar); // Cuando usas una barra de la app perteneciente a un fragmento, Google recomienda que uses directamente las APIs de Toolbar. No uses setSupportActionBar() ni las APIs de menú de Fragment, que son adecuadas solo para las barras de la app pertenecientes a una actividad.
     getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_home);
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+  }
+
+  private void setFragmentByDefault(){
+    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new EmailFragment()).commit();
+    MenuItem item = navigationView.getMenu().getItem(0);
+    item.setChecked(true);
+    getSupportActionBar().setTitle(item.getTitle());
   }
 
   @Override
