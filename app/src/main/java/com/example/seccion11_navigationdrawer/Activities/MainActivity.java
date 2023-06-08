@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.seccion11_navigationdrawer.Fragments.AlertsFragment;
@@ -32,6 +33,28 @@ public class MainActivity extends AppCompatActivity {
     navigationView = (NavigationView) findViewById(R.id.navView);
 
     setFragmentByDefault();
+
+    drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+      @Override
+      public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+      }
+
+      @Override
+      public void onDrawerOpened(@NonNull View drawerView) {
+        Toast.makeText(MainActivity.this, "Open", Toast.LENGTH_SHORT).show();
+      }
+
+      @Override
+      public void onDrawerClosed(@NonNull View drawerView) {
+        Toast.makeText(MainActivity.this, "Close", Toast.LENGTH_SHORT).show();
+      }
+
+      @Override
+      public void onDrawerStateChanged(int newState) {
+
+      }
+    });
 
     navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
       @Override
@@ -58,9 +81,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (fragmentTransaction){
-          getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
-          item.setChecked(true);
-          getSupportActionBar().setTitle(item.getTitle());
+          changeFragment(fragment, item);
           drawerLayout.closeDrawers();
         }
 
@@ -77,8 +98,11 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void setFragmentByDefault(){
-    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new EmailFragment()).commit();
-    MenuItem item = navigationView.getMenu().getItem(0);
+    changeFragment(new EmailFragment(), navigationView.getMenu().getItem(0));
+  }
+
+  private void changeFragment(Fragment fragment, MenuItem item){
+    getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment).commit();
     item.setChecked(true);
     getSupportActionBar().setTitle(item.getTitle());
   }
